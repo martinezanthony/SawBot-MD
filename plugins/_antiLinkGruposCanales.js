@@ -1,0 +1,37 @@
+let groupLinkRegex = /chat.whatsap/i;
+let channelLinkRegex = /whatsapp.com\/channel/i;
+
+let plugin = (m) => m;
+plugin.before = async function (m, { client, participants, isAdmin, isBotAdmin, isOwner, chat }) {
+  if (isAdmin || isOwner) return;
+  if (!m.isGroup) return;
+  const groupAdmins = participants.filter((p) => p.admin);
+  let isGroupLink = groupLinkRegex.exec(m.text);
+  let isChannelLink = channelLinkRegex.exec(m.text);
+
+  if (chat.antiGroups && isGroupLink) {
+    if (!isBotAdmin) return client.sendText(m.chat, txt.antiGroups, null, { mentions: [m.sender, ...groupAdmins.map((v) => v.id)] });
+    if (chat.delete) return client.sendText(m.chat, txt.antiGroupsDelete, null, { mentions: [m.sender, ...groupAdmins.map((v) => v.id)] });
+
+    if (isBotAdmin) {
+      await client.sendText(m.chat, txt.antiGroupsSuccess(m.sender), null, { mentions: [m.sender, ...groupAdmins.map((v) => v.id)] });
+      await m.delete();
+      await client.groupParticipantsUpdate(m.chat, [m.sender], "remove");
+    }
+  }
+
+  if (chat.antiChannels && isChannelLink) {
+    if (!isBotAdmin) return client.sendText(m.chat, txt.antiChannel, null, { mentions: [m.sender, ...groupAdmins.map((v) => v.id)] });
+    if (chat.delete) return client.sendText(m.chat, txt.antiChannelDelete, null, { mentions: [m.sender, ...groupAdmins.map((v) => v.id)] });
+
+    if (isBotAdmin) {
+      await client.sendText(m.chat, txt.antiChannelSuccess(m.sender), null, { mentions: [m.sender, ...groupAdmins.map((v) => v.id)] });
+      await m.delete();
+      //await client.groupParticipantsUpdate(m.chat, [m.sender], "remove");
+    }
+  }
+
+  return;
+};
+
+export default plugin;
