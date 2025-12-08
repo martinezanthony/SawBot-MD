@@ -1,7 +1,7 @@
 import { getUser, updateUser } from "../databaseFunctions.js";
 
 let plugin = {};
-plugin.cmd = ["silenciar", "mute", "desilenciar", "silencio", "hacesilencio"];
+plugin.cmd = ["silenciar", "mute", "desilenciar", "unmute", "silencio", "hacesilencio"];
 plugin.onlyGroup = true;
 plugin.botAdmin = true;
 plugin.onlyAdmin = true;
@@ -29,7 +29,7 @@ plugin.run = async (m, { client, text, usedPrefix, command }) => {
   if (!whoData) return client.sendText(m.chat, "No existen datos del usuario, puede que aun no haya enviado mensajes");
 
   let trueOrFalse;
-  if (command == "desilenciar") {
+  if (command == "desilenciar" || command == "unmute") {
     trueOrFalse = false;
   } else {
     trueOrFalse = true;
