@@ -1,13 +1,24 @@
 import strings from "./lib/strings.js";
+import fs from "fs";
+import toml from "@iarna/toml";
+
+// Cargar y parsear config.toml
+let config = {};
+try {
+  const tomlString = fs.readFileSync("config.toml", "utf8");
+  config = toml.parse(tomlString);
+} catch (error) {
+  console.error("Error al cargar config.toml:", error.message);
+}
 
 // Session Name
 globalThis.authFile = `botSession`;
 
 // Numero del bot sin "+" ni espacios ni guiones. Dejar vacío para vincular con codigo QR.
-globalThis.numberBot = "";
+globalThis.numberBot = config.numberBot || "";
 
 // Numeros de owners del bot sin "+" ni espacios ni guiones
-globalThis.owners = ["", ""];
+globalThis.owners = config.owners || [""];
 
 // Prefijos de comandos
 globalThis.prefix = [".", "/", "#", "@"];

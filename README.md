@@ -87,22 +87,22 @@ Al iniciar el bot en windows, verá que aparece un mensaje de color azul indican
 
 ### Notas extras:
 
-- Por defecto el bot mostrará el codigo QR de vinculación que deberás escanear con WhatsApp. Si quieres vincular mediante código de 8 dígitos en vez de QR, deberás modificar la variable global "numberBot" en el archivo `globals.js` localizado en la raíz del bot, introduciendo el número de WhatsApp que vinculará con el bot, sin "+" ni espacios o guiones, y al volver a iniciar el bot, mostrará el codigo de 8 digitos que deberás introducir en tu WhatsApp.
-Ejemplo de globals.js:
+- Por defecto el bot mostrará el codigo QR de vinculación que deberás escanear con WhatsApp. Si quieres vincular mediante código de 8 dígitos en vez de QR, deberás modificar el valor de "numberBot" en el archivo `config.toml` localizado en la raíz del bot, introduciendo el número de WhatsApp que vinculará con el bot, sin "+" ni espacios o guiones, y al volver a iniciar el bot, mostrará el codigo de 8 digitos que deberás introducir en tu WhatsApp.
+Ejemplo de config.toml:
 
-```JavaScript
-// Numero del bot sin "+" ni espacios ni guiones. Dejar vacío para vincular con codigo QR.
-globalThis.numberBot = "59899999999";
+```TOML
+# Numero del bot sin "+" ni espacios ni guiones. Dejar vacío para vincular con codigo QR.
+numberBot = "59899999999"
 
-// Dejarlo vacío para vincular con QR:
-globalThis.numberBot = "";
+# Dejarlo vacío para vincular con QR:
+numberBot = ""
 ```
 
-- Para tener privilegios de owner en el bot, deberás modificar en el archivo `globals.js` la variable global "owners", poniendo tu numero de telefono real con el que tendrás permisos de owner:
+- Para tener privilegios de owner en el bot, deberás modificar en el archivo `config.toml` el dato de "owners", poniendo tu numero de telefono real con el que tendrás permisos de owner:
 
-```JavaScript
-// Numeros de owners del bot sin "+" ni espacios ni guiones
-globalThis.owners = ["59899999999", ""];
+```TOML
+# Numeros de owners del bot sin "+" ni espacios ni guiones
+owners = ["59899999999", ""]
 ```
 
 - Si tienes problemas con la vinculación o quieres vincular con otro numero, debes eliminar la carpeta `botSession` e iniciar el bot nuevamente para poder vincular el bot correctamente.
