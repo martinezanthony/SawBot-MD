@@ -43,7 +43,7 @@ plugin.run = async (m, { client, text, usedPrefix, command }) => {
   if (!who) return client.sendText(m.chat, txt.defaultWhoBlackList(usedPrefix, command), m);
   if (who === client.user.jid) return m.react("❌");
   if (who === m.senderJid) return m.react("❌");
-  if (command == "re" && !reason) return client.sendText(m.chat, txt.blistRejectNullReason, m);
+  if (command == "ln" && !reason) return client.sendText(m.chat, txt.blistRejectNullReason, m);
 
   // no afectar a owners del bot
   const ownerJids = globalThis.owners.map((owner) => owner + "@s.whatsapp.net");
