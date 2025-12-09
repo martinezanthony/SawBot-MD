@@ -1,7 +1,7 @@
-import { deleteUser } from "../databaseFunctions.js";
+import { getUser, deleteUser } from "../databaseFunctions.js";
 
 let plugin = {};
-plugin.cmd = ["rd"];
+plugin.cmd = ["rd", "resetuser", "userreset", "restaurarusuario"];
 plugin.onlyOwner = true;
 
 plugin.run = async (m, { client, text, usedPrefix, command }) => {
