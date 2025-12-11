@@ -4,7 +4,7 @@ import { isBlacklisted } from "../databaseFunctions.js";
 const timers = new Map();
 
 let plugin = (m) => m;
-plugin.before = async function (m, { client, participants, chat }) {
+plugin.before = async function (m, { client, participants, isBotAdmin, chat }) {
   if (!m.messageStubType || !m.isGroup) return;
   const raw = m?.messageStubParameters?.[0] || null;
   const parseStub = safeJSON(raw);
@@ -38,6 +38,7 @@ plugin.before = async function (m, { client, participants, chat }) {
 
   // solicitud de unirse de un usuario que está en lista negra.
   if (m.messageStubType == 172) {
+    if (!isBotAdmin) return;
     try {
       const pendientes = await client.groupRequestParticipantsList(m.chat);
       const usuariosRechazar = [];
