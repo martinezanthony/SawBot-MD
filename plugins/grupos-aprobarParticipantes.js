@@ -25,12 +25,13 @@ plugin.run = async (m, { client, command }) => {
         await client.sendText(m.chat, "No hay participantes pendientes de aprobación.", m);
         return;
       }
-      for (const participant of participants) {
-        await client.groupRequestParticipantsUpdate(groupId, [participant.jid], "approve");
-      }
+      const jids = participants.map((p) => p.jid);
+      await client.groupRequestParticipantsUpdate(groupId, jids, "approve");
+      await new Promise((resolve) => setTimeout(resolve, 2000));
       m.react("✅");
     }
   } catch (error) {
+    console.log(error);
     await client.sendText(m.chat, "Hubo un error al procesar el comando.", m);
   }
 };
