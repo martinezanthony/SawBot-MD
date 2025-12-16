@@ -20,6 +20,9 @@ async function startBot() {
     },
     markOnlineOnConnect: true,
     generateHighQualityLinkPreview: true,
+    syncFullHistory: false,
+    shouldSyncHistoryMessage: () => false,
+    getMessage: () => null,
   };
   global.client = makeWASocket(connectionOptions);
 
