@@ -169,7 +169,7 @@ async function startBot() {
     if (!client || !client.user) return;
     clearTmp();
     console.log(txt.clearTmp);
-  }, 1000 * 60 * 60);
+  }, 1000 * 60 * 30);
 
   // Guardar sesión actualizada
   client.ev.on("creds.update", saveCreds);
