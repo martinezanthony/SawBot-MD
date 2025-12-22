@@ -83,8 +83,11 @@ async function startBot() {
   }
 
   // Evento de mensajes entrantes
-  client.ev.on("messages.upsert", ({ messages }) => {
+  client.ev.on("messages.upsert", ({ messages, type }) => {
     for (const m of messages) {
+      const isAppend = type === "append" || null;
+      if (isAppend && !m?.key?.fromMe) return console.log("Ignorando mensaje(s) de cuando el bot estaba OFFLINE.");
+
       msgQueue.push(m);
     }
     processQueue();
