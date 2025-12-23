@@ -69,7 +69,8 @@ export function loadDatabase() {
   db.exec(`
     CREATE TABLE IF NOT EXISTS blacklist (
       jid TEXT PRIMARY KEY,
-      reason TEXT
+      reason TEXT,
+      dateAdded INTEGER
     )
   `);
 
@@ -207,12 +208,23 @@ export function updateSettings(botJid, data) {
 
 // añadir usuario a lista negra
 export function addToBlacklist(jid, reason) {
-  db.prepare(
-    `
-    INSERT OR REPLACE INTO blacklist (jid, reason)
-    VALUES (?, ?)
-  `
-  ).run(jid, reason);
+  const exists = isBlacklisted(jid);
+  if (exists) {
+    // actualiza unicamente la razón.
+    db.prepare(
+      `
+      UPDATE blacklist SET reason = ? WHERE jid = ?
+      `
+    ).run(reason, jid);
+  } else {
+    const dateAdded = Date.now();
+    db.prepare(
+      `
+      INSERT INTO blacklist (jid, reason, dateAdded)
+      VALUES (?, ?, ?)
+      `
+    ).run(jid, reason, dateAdded);
+  }
 }
 
 // eliminar usuario de lista negra

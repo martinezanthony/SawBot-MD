@@ -4,7 +4,7 @@ let plugin = {};
 plugin.cmd = ["ln", "ln2", "vln"];
 plugin.onlyOwner = true;
 
-plugin.run = async (m, { client, text, usedPrefix, command }) => {
+plugin.run = async (m, { client, text, usedPrefix, command, participants }) => {
   // Mostrar todos los usuarios en blacklist
   if (command === "vln") {
     const entries = getBlacklist();
@@ -14,7 +14,24 @@ plugin.run = async (m, { client, text, usedPrefix, command }) => {
     let msg = entries
       .map((entry, i) => {
         const num = `+${entry.jid.split("@")[0]}`;
-        return `${i + 1}. ${num}\nRazón: ${entry.reason}\n`;
+
+        // formatear la fecha
+        let fechaTexto = "Desconocida";
+        if (entry.dateAdded) {
+          const d = new Date(entry.dateAdded);
+          fechaTexto = d
+            .toLocaleString("es-ES", {
+              day: "2-digit",
+              month: "2-digit",
+              year: "numeric",
+              hour: "2-digit",
+              minute: "2-digit",
+              hour12: false,
+            })
+            .replace(",", " -");
+        }
+
+        return `${i + 1}. ${num}\n📝Razón: ${entry.reason}\n📆 Fecha: ${fechaTexto}\n`;
       })
       .join("\n");
 
@@ -65,8 +82,14 @@ plugin.run = async (m, { client, text, usedPrefix, command }) => {
     addToBlacklist(who, reason);
     m.react("✅");
 
-    // Expulsar si el comando se ejecutó en un grupo, y el usuario está en él.
-    if (m.isGroup) await client.groupParticipantsUpdate(m.chat, [who], "remove");
+    // expulsar si el comando se ejecutó en un grupo, y el usuario está en él.
+    if (m.isGroup) {
+      const isInGroup = participants.some((p) => p.phoneNumber === who);
+
+      if (isInGroup) {
+        await client.groupParticipantsUpdate(m.chat, [who], "remove");
+      }
+    }
 
     return;
   } else if (command === "ln2") {
