@@ -86,7 +86,7 @@ async function startBot() {
   client.ev.on("messages.upsert", ({ messages, type }) => {
     for (const m of messages) {
       const isAppend = type === "append" || null;
-      if (isAppend && !m?.key?.fromMe) return console.log("Ignorando mensaje(s) de cuando el bot estaba OFFLINE.");
+      if (isAppend && !m?.key?.fromMe) return;
 
       msgQueue.push(m);
     }
