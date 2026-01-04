@@ -85,8 +85,8 @@ async function startBot() {
   // Evento de mensajes entrantes
   client.ev.on("messages.upsert", ({ messages, type }) => {
     for (const m of messages) {
-      const isAppend = type === "append" || null;
-      if (isAppend && !m?.key?.fromMe) return;
+      // añadir type al "m" para verificar posteriormente en handleMessage si el mensaje es append o notify y evitar flood.
+      m._upsertType = type;
 
       msgQueue.push(m);
     }

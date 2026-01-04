@@ -11,6 +11,9 @@ export async function handleMessage(nMsg) {
   try {
     m = smsg(this, m) || m;
 
+    // Evitar que el bot responda a mensajes de comandos de cuando estaba offline.
+    if (m._upsertType === "append" && globalThis.prefix.find((p) => m.text.startsWith(p))) return;
+
     // inicializar datos si no existen
     initDataDB(m);
     syncUserInfo(m);
