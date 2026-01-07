@@ -1,4 +1,4 @@
-import { isBlacklisted } from "../databaseFunctions.js";
+import { getUser, isBlacklisted } from "../databaseFunctions.js";
 
 // mapa para demote de bot
 const timers = new Map();
@@ -62,6 +62,14 @@ plugin.before = async function (m, { client, participants, isBotAdmin, chat }) {
 
   if (!chat.detect) return;
   if (chat.isBanned) return;
+
+  // Si el evento involucra a un owner del bot, retornar para no lanzar alerta al chat.
+  const ownerJids = globalThis.owners.map((owner) => owner + "@s.whatsapp.net");
+  for (const ownerJid of ownerJids) {
+    const ownerData = getUser(ownerJid);
+    const ownerLid = ownerData?.lid;
+    if (m.sender == ownerLid || userLid == ownerLid) return;
+  }
 
   if (chat.detect && m.messageStubType == 23) {
     await client.sendText(m.chat, txt.detectEventsResetLink(m.sender), fkontak, { mentions: [m.sender, userLid, ...groupAdmins.map((v) => v.id)] });
