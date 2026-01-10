@@ -16,7 +16,7 @@ plugin.run = async (m, { client, text, usedPrefix, command }) => {
     who = m.quoted.sender;
   }
 
-  if (!who.endsWith("@lid")) {
+  if (who && !who.endsWith("@lid")) {
     const whoData = getUser(who);
     who = whoData?.lid || null;
   }
