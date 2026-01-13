@@ -85,9 +85,18 @@ plugin.run = async (m, { client, text, usedPrefix, command, participants }) => {
     // expulsar si el comando se ejecutó en un grupo, y el usuario está en él.
     if (m.isGroup) {
       const isInGroup = participants.some((p) => p.phoneNumber === who);
+      if (isInGroup) await client.groupParticipantsUpdate(m.chat, [who], "remove");
+    }
 
-      if (isInGroup) {
-        await client.groupParticipantsUpdate(m.chat, [who], "remove");
+    // Comprobar en todos los otros grupos si el usuario es participante, y expulsar si hay coincidencia
+    const groupChats = Object.keys(client.chats).filter((key) => key.endsWith("@g.us"));
+    for (const chatId of groupChats) {
+      if (m.isGroup && chatId === m.chat) continue;
+      const metadata = client.chats[chatId]?.metadata;
+      if (metadata && metadata.participants) {
+        const groupParticipants = metadata.participants;
+        const isInGroup = groupParticipants.some((p) => p.phoneNumber === who);
+        if (isInGroup) await client.groupParticipantsUpdate(chatId, [who], "remove");
       }
     }
 
