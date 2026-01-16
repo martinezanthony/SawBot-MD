@@ -1,4 +1,4 @@
-import { isBlacklisted } from "../databaseFunctions.js";
+import { isBlacklisted } from "../database-functions.js";
 
 let plugin = (m) => m;
 plugin.before = async function (m, { client, isBotAdmin, isRAdmin }) {

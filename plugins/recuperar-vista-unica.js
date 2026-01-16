@@ -1,5 +1,5 @@
 let plugin = {};
-plugin.cmd = ["r"];
+plugin.cmd = ["r", "recovery", "recuperar"];
 plugin.onlyGroup = true;
 plugin.botAdmin = true;
 

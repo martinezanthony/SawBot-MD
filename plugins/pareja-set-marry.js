@@ -1,7 +1,7 @@
-import { getUser, updateUser } from "../databaseFunctions.js";
+import { getUser, updateUser } from "../database-functions.js";
 
 let plugin = {};
-plugin.cmd = ["setpareja"];
+plugin.cmd = ["setmarry"];
 plugin.onlyOwner = true;
 
 plugin.run = async (m, { client, text }) => {
@@ -48,6 +48,11 @@ Ejemplo válido:
       fkontak
     );
 
+  // Si aun no son pareja retornar sin casarlos.
+  if (!persona1 || !persona2 || persona1?.couple !== persona2Jid || persona2?.couple !== persona1Jid) {
+    return client.sendText(m.chat, "💍 *Antes de casarse, primero deben ser pareja!*\nUsa: `.setpareja @user1 @user2`", fkontak);
+  }
+
   const convertToMilliseconds = (timeText) => {
     let totalMilliseconds = 0;
     let regex = /(\d+)\s*(días?|dia?s?|horas?|hora?s?|minutos?|minuto?s?|segundos?|segundo?s?)/g;
@@ -82,20 +87,18 @@ Ejemplo válido:
     }
   }
 
-  // si anteriormente fueron pareja, limpiar historial
-  const oldHistory1 = Array.isArray(persona1.couplesHistory) ? persona1.couplesHistory : [];
-  const oldHistory2 = Array.isArray(persona2.couplesHistory) ? persona2.couplesHistory : [];
-  const esParejaAntigua = oldHistory1.includes(persona2Jid);
-  const newHistory1 = esParejaAntigua ? oldHistory1.filter((id) => id !== persona2Jid) : oldHistory1;
-
-  const newHistory2 = esParejaAntigua ? oldHistory2.filter((id) => id !== persona1Jid) : oldHistory2;
-
   // actualizar ambos usuarios en db
-  updateUser(persona1Lid, { couplesHistory: JSON.stringify(newHistory1), couple: persona2Jid, coupleTime: Date.now() - time });
-  updateUser(persona2Lid, { couplesHistory: JSON.stringify(newHistory2), couple: persona1Jid, coupleTime: Date.now() - time });
+  updateUser(persona1Lid, { married: persona2Jid, marriedTime: +new Date() - time });
+  updateUser(persona2Lid, { married: persona1Jid, marriedTime: +new Date() - time });
 
-  const kz = await client.sendText(m.chat, txt.parejaAccept(persona1Lid, persona2Lid), fkontak);
-  client.sendMessage(m.chat, { react: { text: "❤️", key: kz.key } });
+  const kz = await client.sendText(m.chat, txt.parejaCasamientoSuccess(persona1Lid, persona2Lid), fkontak);
+  await delay(700);
+  for (const emoji of ["💗", "❤️‍🔥", "🩵", "💚", "💛", "🩷", "❤️"]) {
+    await client.sendMessage(m.chat, { react: { text: emoji, key: kz.key } });
+    await delay(700);
+  }
 };
 
 export default plugin;
+
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));

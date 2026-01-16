@@ -1,4 +1,4 @@
-import { getUser } from "../databaseFunctions.js";
+import { getUser } from "../database-functions.js";
 
 let plugin = {};
 plugin.cmd = ["ex", "miex", "exs"];

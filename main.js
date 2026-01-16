@@ -1,12 +1,12 @@
 import "./globals.js";
 const { DisconnectReason, useMultiFileAuthState, makeCacheableSignalKeyStore } = await import(baileys);
 import { readdirSync, rmSync } from "fs";
-import { makeWASocket, protoType, serialize } from "./lib/waSocket.js";
+import { makeWASocket, protoType, serialize } from "./lib/wa-socket.js";
 import pino from "pino";
-import { installYtDlp, loadPlugins, watchPlugins } from "./loadFunctions.js";
-import { loadDatabase, getChat, getBotSettings, isBlacklisted } from "./databaseFunctions.js";
+import { installYtDlp, loadPlugins, watchPlugins } from "./load-functions.js";
+import { loadDatabase, getChat, getBotSettings, isBlacklisted } from "./database-functions.js";
 import qrcode from "qrcode-terminal";
-let handler = await import("./handleMessage.js");
+let handler = await import("./handle-message.js");
 
 // Función principal del bot
 async function startBot() {

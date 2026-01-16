@@ -1,4 +1,4 @@
-import { updateChat, updateSettings } from "../databaseFunctions.js";
+import { updateChat, updateSettings } from "../database-functions.js";
 
 let plugin = {};
 plugin.cmd = ["modoadmin", "adminmode", "welcome", "detect", "delete", "antieliminar", "modoadulto", "18", "adultmode", "mentions", "menciones", "bc", "banchat", "autoread", "antiprivate", "antiprivado", "anticall", "audios", "anticanales", "antigrupos", "allantilink", "antilink2", "antitiktok", "antitt", "antitelegram", "antitg", "antiinstagram", "antiig", "reactions", "reacciones", "juegos", "games"];

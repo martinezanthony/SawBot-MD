@@ -1,4 +1,4 @@
-import { updateUser } from "../databaseFunctions.js";
+import { updateUser } from "../database-functions.js";
 
 let plugin = {};
 plugin.cmd = ["banuser", "unbanuser"];

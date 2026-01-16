@@ -1,4 +1,4 @@
-import { getTotalUsers } from "../databaseFunctions.js";
+import { getTotalUsers } from "../database-functions.js";
 
 let plugin = {};
 plugin.cmd = ["menu", "menú", "help", "comandos", "ayuda"];
@@ -44,6 +44,7 @@ ${readMore}
 ┃🩸 ${usedPrefix}ap ☑️ – \`Aprobar solicitudes pendientes para unirse.\`
 ┃🩸 ${usedPrefix}ruletadelban ☠️ – \`Elimina un participante al azar.\`
 ┃🩸 ${usedPrefix}config ⚙️ – \`Ver la configuración actual del bot en el grupo\`
+┃🩸 ${usedPrefix}conteo 🏆 – \`Ver los 10 que mas hablan en este grupo.\`
 *▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔*
 ⚙️ *[ 𝙲𝙾𝙽𝙵𝙸𝙶𝚄𝚁𝙰𝙲𝙸𝙾́𝙽 ]* 🪚
 *[ Si está activado, se desactiva, y viceversa ]*
@@ -73,12 +74,12 @@ ${readMore}
 ┃🩸 ${usedPrefix}video <nombre> 🎥 – \`Busca un video de YouTube.\`
 ┃🩸 ${usedPrefix}imagen <texto> 📷 – \`Busca una imagen en Google.\`
 ┃🩸 ${usedPrefix}imagen2 <texto> 🖼️ – \`Busca una imagen en Google.\`
-┃🩸 ${usedPrefix}igdl <enlaceTikTok> 📷 – \`Descarga video de TikTok.\`
+┃🩸 ${usedPrefix}tt <enlaceTikTok> 📷 – \`Descarga video de TikTok.\`
 ┃🩸 ${usedPrefix}igdl <enlaceInstagram> 📷 – \`Descarga imagen/video de Instagram.\`
 *▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔*
 🤖 *[ 𝙷𝙰𝙱𝙻𝙰𝚁 𝙲𝙾𝙽 𝙸𝙰 ]* 🪚
 ┃🩸 @bot <texto> 🤖 – \`Habla con el bot.\`
-┃🩸 ${usedPrefix}chatgpt <texto> 🤖 – \`Pregunta a la IA.\`
+┃🩸 ${usedPrefix}gemini <texto> 🤖 – \`Pregunta a la IA.\`
 ┃🩸 ${usedPrefix}ia <texto> 🤖 – \`Pregunta a la IA.\`
 *▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔*
 🪀 *[ 𝙲𝙾𝙽𝚅𝙴𝚁𝚃𝙸𝙳𝙾𝚁𝙴𝚂 ]* 🪚
@@ -97,7 +98,6 @@ ${readMore}
 ┃🩸 ${usedPrefix}trans 🏳️‍⚧️
 ┃🩸 ${usedPrefix}bi 🌈
 ┃🩸 ${usedPrefix}simp 🙅🏻‍♂️
-┃🩸 ${usedPrefix}smeme <texto> ✏️ – \`Añade texto a una imágen.\`
 ┃🩸 ${usedPrefix}licenciahot 🔥
 ┃🩸 ${usedPrefix}cárcel 🚓
 *▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔*
@@ -120,6 +120,9 @@ ${readMore}
 ┃🩸 ${usedPrefix}casarse 💍 – \`Pídele a tu pareja para casarse.\`
 ┃🩸 ${usedPrefix}si ✅ – \`Acepta la petición de casarse si te la enviaron.\`
 ┃🩸 ${usedPrefix}no ❌ – \`Rechaza la petición de casarse si te la enviaron.\`
+*▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔*
+📚 Definiciones RAE 🪚
+┃🩸 ${usedPrefix}rae <palabra> 📚 – \`Buscar definición de palabra en la RAE\`
 *▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔*
 🎮 *[ 𝙹𝚄𝙴𝙶𝙾𝚂 𝙴𝚇𝚃𝚁𝙰 ]* 🪚
 ┃🩸 ${usedPrefix}ttt 🕹️ – \`TaTeTi\`
@@ -199,7 +202,7 @@ Ver mas información con el siguiente comando:
         externalAdReply: { showAdAttribution: false, renderLargerThumbnail: true, thumbnailUrl: randomImage, title: `🩸MΣПЦ́ MΣПЦ́ MΣПЦ́ MΣПЦ́ MΣПЦ́🪚\n🪚MΣПЦ́ MΣПЦ́ MΣПЦ́ MΣПЦ́ MΣПЦ́💉`, containsAutoReply: true, mediaType: 1, mediaUrl: randomImage, sourceUrl: null },
       },
     },
-    { quoted: fkontak }
+    { quoted: fkontak },
   );
   client.sendMessage(m.chat, { react: { text: "📚", key: kz.key } });
 };

@@ -1,4 +1,4 @@
-import { addToBlacklist, removeFromBlacklist, getBlacklist, isBlacklisted, getUser } from "../databaseFunctions.js";
+import { addToBlacklist, removeFromBlacklist, getBlacklist, isBlacklisted, getUser } from "../database-functions.js";
 
 let plugin = {};
 plugin.cmd = ["ln", "ln2", "vln"];
@@ -31,7 +31,10 @@ plugin.run = async (m, { client, text, usedPrefix, command, participants }) => {
             .replace(",", " -");
         }
 
-        return `${i + 1}. ${num}\n📝Razón: ${entry.reason}\n📆 Fecha: ${fechaTexto}\n`;
+        const razon = entry.reason || "Sin razón";
+        const añadidoPor = entry.addedBy ? `+${entry.addedBy.split("@")[0]}` : "Desconocido";
+
+        return `${i + 1}. ${num}\n📝 Razón: ${razon}\n👤 Añadido por: ${añadidoPor}\n📆 Fecha: ${fechaTexto}\n`;
       })
       .join("\n");
 
@@ -73,13 +76,13 @@ plugin.run = async (m, { client, text, usedPrefix, command, participants }) => {
     // verificar si el usuario ya está en blacklist
     if (exists) {
       // Si ya está, actualizar la razón
-      addToBlacklist(who, reason);
+      addToBlacklist(who, reason, m.senderJid);
       client.sendText(m.chat, "El usuario ya estaba en blacklist. Se actualizó el motivo de estarlo.", m);
       return;
     }
 
     // añadir usuario a blacklist
-    addToBlacklist(who, reason);
+    addToBlacklist(who, reason, m.senderJid);
     m.react("✅");
 
     // expulsar si el comando se ejecutó en un grupo, y el usuario está en él.

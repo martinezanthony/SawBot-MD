@@ -1,4 +1,4 @@
-import { getUser, updateUser } from "../databaseFunctions.js";
+import { getUser, updateUser } from "../database-functions.js";
 
 let plugin = {};
 plugin.cmd = ["unwarn", "quitaradvertencia"];

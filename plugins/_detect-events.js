@@ -1,4 +1,4 @@
-import { getUser, isBlacklisted } from "../databaseFunctions.js";
+import { getUser, isBlacklisted } from "../database-functions.js";
 
 // mapa para demote de bot
 const timers = new Map();
@@ -83,8 +83,6 @@ plugin.before = async function (m, { client, participants, isBotAdmin, chat }) {
 };
 
 export default plugin;
-
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 function rejectUsers(jid) {
   return Boolean(isBlacklisted(jid));

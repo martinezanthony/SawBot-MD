@@ -13,8 +13,12 @@ plugin.before = async function (m, { client, participants, isAdmin, isBotAdmin, 
     if (!isBotAdmin) return client.sendText(m.chat, txt.antiGroups, null, { mentions: [m.sender, ...groupAdmins.map((v) => v.id)] });
     if (chat.delete) return client.sendText(m.chat, txt.antiGroupsDelete, null, { mentions: [m.sender, ...groupAdmins.map((v) => v.id)] });
 
+    const thisGroup = await client.groupInviteCode(m.chat);
+    const isThisGroup = m.text.includes(thisGroup);
+    if (isThisGroup) return client.sendText(m.chat, "El link es de este mismo grupo 😄", m);
+
     if (isBotAdmin) {
-      await client.sendText(m.chat, txt.antiGroupsSuccess(m.sender), null, { mentions: [m.sender, ...groupAdmins.map((v) => v.id)] });
+      client.sendMessage(m.chat, { text: txt.antiGroupsSuccess(m.sender), mentions: [m.sender, ...groupAdmins.map((v) => v.id)] }, { quoted: null });
       await m.delete();
       await client.groupParticipantsUpdate(m.chat, [m.sender], "remove");
     }
@@ -25,7 +29,7 @@ plugin.before = async function (m, { client, participants, isAdmin, isBotAdmin, 
     if (chat.delete) return client.sendText(m.chat, txt.antiChannelDelete, null, { mentions: [m.sender, ...groupAdmins.map((v) => v.id)] });
 
     if (isBotAdmin) {
-      await client.sendText(m.chat, txt.antiChannelSuccess(m.sender), null, { mentions: [m.sender, ...groupAdmins.map((v) => v.id)] });
+      client.sendMessage(m.chat, { text: txt.antiChannelSuccess(m.sender), mentions: [m.sender, ...groupAdmins.map((v) => v.id)] }, { quoted: null });
       await m.delete();
       //await client.groupParticipantsUpdate(m.chat, [m.sender], "remove");
     }

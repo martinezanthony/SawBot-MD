@@ -1,6 +1,6 @@
 import fs from "fs";
 import toml from "@iarna/toml";
-import { getUser } from "../databaseFunctions.js";
+import { getUser } from "../database-functions.js";
 
 let plugin = {};
 plugin.cmd = ["addowner", "removeowner", "aowner", "rowner"];

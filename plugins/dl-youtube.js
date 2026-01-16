@@ -4,7 +4,7 @@ import { exec } from "child_process";
 import { promisify } from "util";
 import path from "path";
 import { existsSync, promises } from "fs";
-import { updateUser } from "../databaseFunctions.js";
+import { updateUser } from "../database-functions.js";
 
 const execAsync = promisify(exec);
 const ytDlpPath = path.resolve("node_modules", "gs", "ygs");

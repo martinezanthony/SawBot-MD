@@ -1,4 +1,4 @@
-import uploadImage from "../lib/uploadImage.js";
+import uploadImage from "../lib/upload-image.js";
 
 let plugin = {};
 plugin.cmd = ["tourl", "upload"];

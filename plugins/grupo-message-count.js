@@ -1,0 +1,48 @@
+import { getAllUsers } from "../database-functions.js";
+
+let plugin = {};
+plugin.cmd = ["conteo"];
+plugin.onlyGroup = true;
+plugin.botAdmin = true;
+plugin.onlyAdmin = true;
+
+plugin.run = async (m, { client }) => {
+  const allUsers = getAllUsers();
+
+  let ranking = [];
+
+  for (const user of allUsers) {
+    const groupData = user.inGroup[m.chat];
+
+    if (groupData && typeof groupData.messageCount === "number" && groupData.messageCount > 0) {
+      const number = user.lid ? user.lid.split("@")[0] : "desconocido";
+
+      ranking.push({
+        number,
+        count: groupData.messageCount,
+      });
+    }
+  }
+
+  // ordenar de mayor a menor conteo
+  ranking.sort((a, b) => b.count - a.count);
+
+  // tomar solo los primeros 10
+  const top10 = ranking.slice(0, 10);
+
+  let txt = "ðŸ† *LOS 10 QUE MAS HABLAN EN ESTE GRUPO* ðŸ†\n\n";
+
+  if (top10.length === 0) {
+    txt += "AÃºn nadie ha enviado mensajes (o el contador estÃ¡ vacÃ­o).";
+  } else {
+    for (let i = 0; i < top10.length; i++) {
+      const position = i + 1;
+      const { number, count } = top10[i];
+      txt += `${position}. @${number} - *${count}* mensajes\n`;
+    }
+  }
+
+  await client.sendText(m.chat, txt, m);
+};
+
+export default plugin;

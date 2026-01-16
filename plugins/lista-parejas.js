@@ -1,4 +1,4 @@
-import { getAllUsers } from "../databaseFunctions.js";
+import { getAllUsers } from "../database-functions.js";
 
 let plugin = {};
 plugin.cmd = ["listaparejas", "listadeparejas"];

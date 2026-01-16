@@ -1,5 +1,5 @@
 import jimp from "jimp-legacy";
-import uploadImage from "../lib/uploadImage.js";
+import uploadImage from "../lib/upload-image.js";
 
 let plugin = {};
 plugin.cmd = ["res"];

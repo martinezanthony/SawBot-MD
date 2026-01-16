@@ -24,7 +24,7 @@ globalThis.owners = config.owners || [""];
 globalThis.prefix = [".", "/", "#", "@"];
 
 // Versión del bot
-globalThis.botVersion = "v0.5";
+globalThis.botVersion = "v1.0";
 
 // Baileys
 globalThis.baileys = "@whiskeysockets/baileys";
@@ -44,4 +44,4 @@ globalThis.jidUru = "120363404278828828@g.us";
 globalThis.fkontak = { key: { participants: "0@s.whatsapp.net", remoteJid: "status@broadcast", fromMe: false, id: "Halo" }, message: { contactMessage: { vcard: `BEGIN:VCARD\nVERSION:3.0\nN:Sy;Bot;;;\nFN:y\nitem1.TEL;waid=\${m.sender.split("@")[0]}:\${m.sender.split("@")[0]}\nitem1.X-ABLabel:Ponsel\nEND:VCARD` } }, participant: "0@s.whatsapp.net" };
 
 // delirius api
-globalThis.deliriusApi = "https://delirius-apiofc.vercel.app/";
+globalThis.deliriusApi = "https://api.delirius.store";

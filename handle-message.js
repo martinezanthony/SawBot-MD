@@ -1,5 +1,5 @@
-import { smsg } from "./lib/waSocket.js";
-import { initDataDB, getUser, getChat, getBotSettings, updateUser, syncUserInfo } from "./databaseFunctions.js";
+import { smsg } from "./lib/wa-socket.js";
+import { initDataDB, getUser, getChat, getBotSettings, updateUser, syncUserInfo } from "./database-functions.js";
 
 // Manejo de mensaje entrante desde msgQueue en main.js
 export async function handleMessage(nMsg) {
@@ -26,7 +26,7 @@ export async function handleMessage(nMsg) {
     // autoRead msg
     if (botSettings.autoRead) await this.readMessages([m.key]);
     // Usuario silenciado
-    if (user.inGroup[m.chat].mute) return m.delete();
+    if (user.inGroup[m.chat]?.mute) return m.delete();
 
     // Obtención de permisos actuales
     const groupMetadata = (m.isGroup ? (client.chats[m.chat] || {}).metadata || (await this.groupMetadata(m.chat).catch((_) => null)) : {}) || {};

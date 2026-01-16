@@ -1,10 +1,10 @@
 {
   "name": "SawBot",
-  "version": "0.5",
-  "main": "startProcess.js",
+  "version": "1.0",
+  "main": "start-process.js",
   "type": "module",
   "scripts": {
-    "start": "node startProcess.js"
+    "start": "node start-process.js"
   },
   "dependencies": {
     "@iarna/toml": "^2.2.5",

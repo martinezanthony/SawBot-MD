@@ -70,7 +70,8 @@ export function loadDatabase() {
     CREATE TABLE IF NOT EXISTS blacklist (
       jid TEXT PRIMARY KEY,
       reason TEXT,
-      dateAdded INTEGER
+      dateAdded INTEGER,
+      addedBy TEXT
     )
   `);
 
@@ -124,6 +125,7 @@ export function getUser(userId, chatJid = null) {
         afk: -1,
         afkReason: "",
         mute: false,
+        messageCount: 0,
       };
 
       updateUser(userId, {
@@ -207,23 +209,17 @@ export function updateSettings(botJid, data) {
 }
 
 // añadir usuario a lista negra
-export function addToBlacklist(jid, reason) {
+export function addToBlacklist(jid, reason, addedBy) {
   const exists = isBlacklisted(jid);
   if (exists) {
-    // actualiza unicamente la razón.
-    db.prepare(
-      `
-      UPDATE blacklist SET reason = ? WHERE jid = ?
-      `
-    ).run(reason, jid);
+    // Solo actualiza la razón (mantiene el addedBy y dateAdded originales)
+    db.prepare(`UPDATE blacklist SET reason = ? WHERE jid = ?`).run(reason, jid);
   } else {
     const dateAdded = Date.now();
     db.prepare(
-      `
-      INSERT INTO blacklist (jid, reason, dateAdded)
-      VALUES (?, ?, ?)
-      `
-    ).run(jid, reason, dateAdded);
+      `INSERT INTO blacklist (jid, reason, dateAdded, addedBy)
+      VALUES (?, ?, ?, ?)`
+    ).run(jid, reason, dateAdded, addedBy);
   }
 }
 

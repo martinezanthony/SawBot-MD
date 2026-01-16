@@ -1,4 +1,4 @@
-import { getUser, deleteUser } from "../databaseFunctions.js";
+import { getUser, deleteUser } from "../database-functions.js";
 
 let plugin = {};
 plugin.cmd = ["rd", "resetuser", "userreset", "restaurarusuario"];
