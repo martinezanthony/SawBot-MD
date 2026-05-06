@@ -14,6 +14,7 @@ async function startBot() {
 
   const connectionOptions = {
     logger: pino({ level: "silent" }),
+    version: [2, 3000, 1035194821],
     auth: {
       creds: state.creds,
       keys: makeCacheableSignalKeyStore(state.keys, pino({ level: "silent" })),
@@ -168,11 +169,14 @@ async function startBot() {
       rmSync(filePath, { recursive: true, force: true });
     });
   }
-  setInterval(async () => {
-    if (!client || !client.user) return;
-    clearTmp();
-    console.log(txt.clearTmp);
-  }, 1000 * 60 * 30);
+  setInterval(
+    async () => {
+      if (!client || !client.user) return;
+      clearTmp();
+      console.log(txt.clearTmp);
+    },
+    1000 * 60 * 30,
+  );
 
   // Guardar sesión actualizada
   client.ev.on("creds.update", saveCreds);
