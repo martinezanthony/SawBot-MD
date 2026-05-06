@@ -7,7 +7,7 @@ plugin.botAdmin = true;
 plugin.run = async (m, { client, usedPrefix }) => {
   const more = String.fromCharCode(8206);
   const readMore = more.repeat(4001);
-  const images = ["https://i.postimg.cc/jSQfmpC7/SAWFDSOIJ6597-DSHB8-EWH7.jpg", "https://i.postimg.cc/rFCn6MgS/botmenu-min.jpg"];
+  const images = ["https://i.postimg.cc/jSQfmpC7/SAWFDSOIJ6597-DSHB8-EWH7.jpg", "https://i.postimg.cc/rFCn6MgS/botmenu-min.jpg", "https://i.postimg.cc/PfR1mYdy/botmenu-xds.jpg"];
   const randomImage = images[Math.floor(Math.random() * images.length)];
 
   const menuText = `
