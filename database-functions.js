@@ -37,6 +37,7 @@ export function loadDatabase() {
       remoteJid TEXT PRIMARY KEY,
       adminMode BOOLEAN DEFAULT 0,
       adultMode BOOLEAN DEFAULT 0,
+      antiStatus BOOLEAN DEFAULT 0,
       antiGroups BOOLEAN DEFAULT 1,
       antiChannels BOOLEAN DEFAULT 1,
       antiInstagram BOOLEAN DEFAULT 0,
@@ -218,7 +219,7 @@ export function addToBlacklist(jid, reason, addedBy) {
     const dateAdded = Date.now();
     db.prepare(
       `INSERT INTO blacklist (jid, reason, dateAdded, addedBy)
-      VALUES (?, ?, ?, ?)`
+      VALUES (?, ?, ?, ?)`,
     ).run(jid, reason, dateAdded, addedBy);
   }
 }

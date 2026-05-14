@@ -1,12 +1,14 @@
 import { updateChat, updateSettings } from "../database-functions.js";
 
 let plugin = {};
-plugin.cmd = ["modoadmin", "adminmode", "welcome", "detect", "delete", "antieliminar", "modoadulto", "18", "adultmode", "mentions", "menciones", "bc", "banchat", "autoread", "antiprivate", "antiprivado", "anticall", "audios", "anticanales", "antigrupos", "allantilink", "antilink2", "antitiktok", "antitt", "antitelegram", "antitg", "antiinstagram", "antiig", "reactions", "reacciones", "juegos", "games"];
+plugin.cmd = ["antiestados", "antistatus", "modoadmin", "adminmode", "welcome", "detect", "delete", "antieliminar", "modoadulto", "18", "adultmode", "mentions", "menciones", "bc", "banchat", "autoread", "antiprivate", "antiprivado", "anticall", "audios", "anticanales", "antigrupos", "allantilink", "antilink2", "antitiktok", "antitt", "antitelegram", "antitg", "antiinstagram", "antiig", "reactions", "reacciones", "juegos", "games"];
 plugin.botAdmin = true;
 
 plugin.run = async (m, { client, command, isOwner, isAdmin, chat, botSettings }) => {
   // Mapa de comandos, campo real en DB
   const optionsMap = {
+    antiestados: { key: "antiStatus", from: "chat" },
+    antistatus: { key: "antiStatus", from: "chat" },
     modoadmin: { key: "adminMode", from: "chat" },
     adminmode: { key: "adminMode", from: "chat" },
     welcome: { key: "welcome", from: "chat" },
